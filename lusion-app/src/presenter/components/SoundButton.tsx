@@ -1,36 +1,49 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-const SoundButtonStyled = styled.button<{ direction: 'top' | 'bottom' | 'left' | 'right' }>`
-    position: relative;
-    padding: 20px 26px;
-    background-color: #c1c7d6ff;
-    color: black;
-    border: none;
-    border-radius: 60%;
-    cursor: pointer;
-    overflow: hidden;
+const SoundButtonStyled = styled.button<{
+  direction: 'top' | 'bottom' | 'left' | 'right';
+}>`
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: #c1c7d6;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 60%;
-        background-color: #244089ff;
-        transform: scale(0);
-        transform-origin: ${({ direction }) => direction};
-        transition: transform 0.3s ease;
-       
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    &:hover::before {
-        transform: scale(1);
-         color: white;
-    }
+  
+  color: black;
+  font-size: 20px;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #244089;
+    border-radius: 50%;
+
+    transform: scale(0);
+    transform-origin: ${({ direction }) => direction};
+    transition: transform 0.35s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: white; /* 🔥 ВОТ ГЛАВНОЕ */
+  }
+
+  &:hover::before {
+    transform: scale(1);
+  }
 `;
+
 
 const SoundButton: React.FC = () => {
     const [direction, setDirection] = useState<'top' | 'bottom' | 'left' | 'right'>('left');
@@ -59,7 +72,7 @@ const SoundButton: React.FC = () => {
 
     return (
         <SoundButtonStyled ref={buttonRef} onMouseEnter={handleMouseEnter} direction={direction}>
-            -
+            - 
         </SoundButtonStyled>
     );
 };
